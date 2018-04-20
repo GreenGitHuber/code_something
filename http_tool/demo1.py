@@ -44,7 +44,6 @@ def parse_url(url):
 
 
 if __name__ =="__main__":
-    #url ='https://github.com/zhaozhengcoder/Machine-Learning'
     url2 ='https://www.sina.com.cn/'
     url3 ='https://www.liaoxuefeng.com/'
     url4 ='http://hello.tongji.edu.cn/'  #现在还不支持https的协议，所以如果一个https的协议的话，就会location 重定向
