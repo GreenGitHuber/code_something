@@ -8,13 +8,9 @@
 
 using namespace netlib;
 
-ThreadPool::ThreadPool(int threadNumber)
-    :threadNumber_(threadNumber),
-    running_(true),
-    threads_(threadNumber_)
-{
-
-}
+// 调用 netlib::ThreadPool pool(10);
+ThreadPool::ThreadPool(int threadNumber):threadNumber_(threadNumber),running_(true),threads_(threadNumber_)
+{}
 
 ThreadPool::~ThreadPool()
 {
@@ -28,7 +24,7 @@ bool ThreadPool::start(void)
 {
     for(int i = 0; i < threadNumber_; i++)
     {
-        threads_.push_back(std::make_shared<std::thread>(std::bind(&ThreadPool::threadWork,this)));//循环创建线程       
+        threads_.push_back(std::make_shared<std::thread>( std::bind(&ThreadPool::threadWork,this) ));//循环创建线程       
     }
     usleep(500);
     printf("线程池开始运行\n");
