@@ -13,6 +13,8 @@ test1-2.cpp c++11 多线程的使用
 
 test1-3.cpp bind 函数 and c++11多线程
 
+test1-4.cpp 不使用bind函数，利用thread api将要执行的函数直接绑定在线程上面，我更喜欢这种写法。
+
 test2-1.cpp 完成了基本内存池的功能。
 
 

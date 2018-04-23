@@ -24,7 +24,7 @@ private:
 	int threadNum;
 	list< function<void(void)> > Task_list;    //任务队列
 	mutex m_;
-	vector<shared_ptr<thread> > threads;       //线程池
+	vector<thread *> threads;       //线程池
 	bool isRuning;
 	std::condition_variable_any condition_empty_;
 
@@ -38,19 +38,14 @@ public:
 			stop();
 		}
 	}
-
-
 	void start() {
 		if (!isRuning) {
 			this->isRuning = true;
-
 			for (int i = 0; i < threadNum; i++) {
-				auto res = bind(&ThreadPool::threadWork, this);
-				auto res2 = make_shared<thread>(res);
-				threads.push_back(res2);
+				thread * th = new thread(&ThreadPool::threadWork,this);
+				threads.push_back(th);
 			}
 			cout << "ThreadPool is running " << endl;
-			
 			return;
 		}
 	}
@@ -65,7 +60,7 @@ public:
 				if (Task_list.empty()) {
 					condition_empty_.wait(this->m_);  //等待有任务到来被唤醒
 				}
-				if(!Task_list.empty())
+				if (!Task_list.empty())
 				{
 					task = Task_list.front();  //从任务队列中获取最开始任务   // typedef std::function<void(void)> Task;
 					Task_list.pop_front();     //将取走的任务弹出任务队列
@@ -82,17 +77,15 @@ public:
 		std::lock_guard<std::mutex> guard(this->m_);
 		this->Task_list.push_front(task);				//将该任务加入任务队列
 		condition_empty_.notify_one();					//唤醒某个线程来执行此任务
-		return ;
+		return;
 	}
 
 	void stop() {
 		if (isRuning)
 		{
 			isRuning = false;
-			for (auto t : threads)
-			{
-				cout << "终止" << endl;
-				t->join();  //循环等待线程终止
+			for (auto it = this->threads.begin(); it != this->threads.end(); it++) {
+				(*it)->join();
 			}
 		}
 	}
