@@ -5,20 +5,22 @@
 我打算把不熟悉的语法都写成一个个的test文件，这样会更好一点。打算写成一个可以在window下用ide调试的代码。
 
 
--
+#### 文件的内容
+
 test1-1.cpp bind函数的用法
+
 test1-2.cpp c++11 多线程的使用
+
 test1-3.cpp bind 函数 and c++11多线程
 
-
--
 test2-1.cpp 完成了基本内存池的功能。
 
 
 
+#### 关于多线程
 
+C++11中加入了<thread>头文件，此头文件主要声明了std::thread线程类。
 
-* 关于多线程
-    C++11中加入了<thread>头文件，此头文件主要声明了std::thread线程类。
-    C++11的标准类std::thread对线程进行了封装。
-    std::thread代表了一个线程对象。应用C++11中的std::thread便于多线程程序的移值。
+C++11的标准类std::thread对线程进行了封装。
+
+std::thread代表了一个线程对象。应用C++11中的std::thread便于多线程程序的移值。
