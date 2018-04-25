@@ -10,7 +10,7 @@
 #include <errno.h>
 #include <time.h>
 #include <sstream>
-#include <iomanip> //for std::setw()/setfill()
+#include <iomanip>  
 #include <unistd.h>
 
 using namespace std;
@@ -72,20 +72,30 @@ int main(){
                 cout<<"error"<<endl;
                 return -1;
             }
+            //如果监听到的事件是　m_listenfd，那表示的是监听到新的fd
             else if (m_listenfd == event[i].data.fd){
                 // 监听到新的fd
                 cout<<"监听到新的fd"<<endl;
 
+                //todo
+                //将监听到的时间加入到epoll的监听队列里面
 
             }
             else{
                 //read/write
                 cout<<"read/write"<<endl;
 
+                //todo
+                //read 逻辑
+
+
+                //write　逻辑
             }
         }
     }
 
+
+    close(m_epollfd);
     close(m_listenfd);
     return 0;
 }
