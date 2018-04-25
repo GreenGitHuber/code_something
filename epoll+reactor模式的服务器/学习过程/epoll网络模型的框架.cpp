@@ -50,25 +50,30 @@ int create_and_bind(char* ip ="0.0.0.0",int port = 8889){
 int main(){
     int m_listenfd = create_and_bind();
 
-    //epoll
+    //epoll_create 
     int m_epollfd = epoll_create(1);
 	if (m_epollfd == -1)
 		return false;
 
+
+    //epoll_ctl
 	struct epoll_event e;
 	memset(&e, 0, sizeof(e));
 	e.events = EPOLLIN | EPOLLRDHUP;
 	e.data.fd = m_listenfd;
-	
+    
     if(epoll_ctl(m_epollfd, EPOLL_CTL_ADD, m_listenfd, &e) == -1)
 	{return false;}
 
+
+    //epoll_wait
     while(1){
         struct epoll_event event[1024];
-		int n = ::epoll_wait(m_epollfd, event, 1024, 10);
+		int n = epoll_wait(m_epollfd, event, 1024, 10);
 
         for(int i=0;i<n;i++){
-            if((event[i].events & EPOLLERR) || (event[i].events & EPOLLHUP) || (!(event[i].events & EPOLLIN))) {
+            if((event[i].events & EPOLLERR) || (event[i].events & EPOLLHUP) || 
+               (!(event[i].events & EPOLLIN))){
                 cout<<"error"<<endl;
                 return -1;
             }
@@ -86,9 +91,7 @@ int main(){
                 cout<<"read/write"<<endl;
 
                 //todo
-                //read 逻辑
-
-
+                //read  逻辑
                 //write　逻辑
             }
         }
