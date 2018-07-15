@@ -2,7 +2,10 @@
 // Created by 姜倩云 on 2018/7/15.
 //
 
-/** 示例: 等待线程退出 **/
+/** task1 
+创建5个线程，每个线程死循环，每5s 打印一个输出。
+主线程sleep 50s 之后，去主动结束子线程
+ **/
 #include <pthread.h>
 #include <unistd.h>
 #include <stdio.h>
