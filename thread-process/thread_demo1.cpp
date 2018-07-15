@@ -41,8 +41,9 @@ int main() {
         pthread_create(&thread[i], NULL, printout, (void*) &i);
     }
 
-    sleep(100);
+    sleep(10);
     for (int i = 0; i < 5; i++) {
+        cout<<"cancel thread"<<i<<endl;
         pthread_cancel(thread[i]);
     }
 }
